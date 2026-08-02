@@ -1,9 +1,8 @@
-import express from "express";
-import { Validate_Input } from "../middleware/validate.js";
-import { SendMail } from "../controller/contactController.js";
-
+const express = require("express");
+const { Validate_Input } = require("../middleware/validate.js");
+const { SendMail } = require("../controller/contactController.js");
 const router = express.Router();
 
 router.post("/contact", Validate_Input, SendMail);
 
-export default router;
+module.exports = router;
