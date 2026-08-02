@@ -5,4 +5,4 @@ const router = express.Router();
  
 router.get("/:id", getProject);
 
-module.exporst =  router;
+module.exports =  router;

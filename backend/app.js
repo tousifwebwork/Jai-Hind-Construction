@@ -7,7 +7,8 @@ const helmet = require("helmet");
 const compression = require("compression");
 const hpp = require("hpp");
 const morgan = require("morgan");
-const Route = require('./router/contact')
+const Contact_Route = require('./router/contact')
+const DB_Route = require('./router/projectRoute')
 const {connect_DB} = require('./config/mongo')
 
 connect_DB();
@@ -28,7 +29,8 @@ app.get("/", (req, res) => {
     res.status(200).json({ success: true, message: "API Running 🚀", });
 });
 
-app.use('/api',Route);
+app.use('/api/contact',Contact_Route);
+app.use('/api/project',DB_Route);
    
 
 app.listen(PORT, () => {
