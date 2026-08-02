@@ -8,12 +8,11 @@ const compression = require("compression");
 const hpp = require("hpp");
 const morgan = require("morgan");
 const Route = require('./router/contact')
+const {connect_DB} = require('./config/mongo')
 
-
-
+connect_DB();
 const app = express();
-const PORT = process.env.PORT || 5000;
-
+const PORT = process.env.PORT || 5000; 
 
 app.use(cors({ origin: process.env.CLIENT_URL,credentials: true,}));
 app.use(helmet());
