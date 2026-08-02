@@ -5,7 +5,7 @@ exports.SendMail = async (req, res) => {
     const { name, email, message } = req.body;
 
     const { data, error } = await resend.emails.send({
-      from: "onboarding@resend.dev",  
+      from: "contact@naatlibrary.online",  
       to: process.env.CONTACT_EMAIL,
       subject: `New Contact Form Submission`,
       html: `
