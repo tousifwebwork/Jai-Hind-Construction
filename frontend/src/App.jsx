@@ -4,6 +4,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
 
 import Nav from './components/Nav'
+import FAQ from './components/FAQ'
+
 import Hero from './pages/Hero'
 import About from './pages/About'
 import Services from './pages/Services'
@@ -72,6 +74,7 @@ const App = () => {
         <About />
         <Services />
         <Experience />
+        <FAQ />
         <Contact />
       </main>
       <Footer />

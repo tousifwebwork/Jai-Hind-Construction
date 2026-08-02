@@ -120,7 +120,7 @@ const About = () => {
 
           {/* Framed panel — site plan */}
           <div ref={panelRef} className="relative">
-            <div className="relative aspect-[4/5] border border-[#17181A]/10 bg-[#FBFAF6] p-2">
+            <div className="relative aspect-4/5 border border-[#17181A]/10 bg-[#FBFAF6] p-2">
               <CornerMarks />
               <div className="flex h-full w-full flex-col items-center justify-center gap-3 border border-dashed border-[#24406B]/20 text-[#48524F]">
                 <Compass size={40} strokeWidth={1.2} className="text-[#24406B]/50" />
