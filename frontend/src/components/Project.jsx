@@ -18,24 +18,13 @@ const CornerMarks = ({ className = '' }) => (
 )
 
  
-
 const technologies = [
   { icon: Building2, label: 'Commercial Construction' },
   { icon: Ruler, label: 'Civil Works' },
   { icon: ShieldCheck, label: 'Safety Systems' },
   { icon: Wrench, label: 'Turnkey Delivery' },
 ]
-
-const projectSlots = [
-  'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80',
-  'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80',
-  'https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1200&q=80',
-  'https://images.unsplash.com/photo-1508062878650-88b52897f298?q=80&w=627&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  'https://plus.unsplash.com/premium_photo-1672423154405-5fd922c11af2?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  'https://plus.unsplash.com/premium_photo-1680281936362-aff258ecd143?q=80&w=700&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  'https://images.unsplash.com/photo-1529307474719-3d0a417aaf8a?q=80&w=680&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-]
-
+ 
 const Project = ({ mode = 'teaser', viewMoreTo = '/projects', showViewMore = true }) => {
 
   const sectionRef = useRef(null)
@@ -44,26 +33,22 @@ const Project = ({ mode = 'teaser', viewMoreTo = '/projects', showViewMore = tru
   const [projectData, setProjectData] = useState([])
   const hasMoreThanThree = projectData.length > 3
 
-  const displayedProjects = projectData.map((project, index) => {
-    const image = projectSlots[index % projectSlots.length]
-
-    return {
-      key: project._id || `project-${index + 1}`,
-      id: project._id || '',
-      code: `P-${String(index + 1).padStart(2, '0')}`,
-      image,
-      title: project.title || '',
-      description: project.description || '',
-      date: project.date || '',
-      location: project.location || '',
-    }
-  })
+  const displayedProjects = projectData.map((project, index) => ({
+  key: project._id || `project-${index + 1}`,
+  id: project._id || "",
+  code: `P-${String(index + 1).padStart(2, "0")}`,
+  image: project.img_url,  
+  title: project.title || "",
+  description: project.description || "",
+  date: project.date || "",
+  location: project.location || "",
+}));
 
   useEffect(() => {
     const loadProjects = async () => {
       try {
         const response = await API.get('/project')
-        setProjectData(response.data.projects || [])
+        setProjectData(response.data.projects || []) 
       } catch (error) {
         setProjectData([])
       }
@@ -108,19 +93,8 @@ const Project = ({ mode = 'teaser', viewMoreTo = '/projects', showViewMore = tru
   }, [])
 
   return (
-    <section
-      ref={sectionRef}
-      id="projects"
-      className="relative overflow-hidden bg-[#F4F2EC] px-6 py-24 text-[#17181A] md:px-12 lg:px-20"
-    >
-      <div
-        className="pointer-events-none absolute inset-0 opacity-70"
-        style={{
-          backgroundImage:
-            'linear-gradient(to right, rgba(36,64,107,0.07) 1px, transparent 1px), linear-gradient(to bottom, rgba(36,64,107,0.07) 1px, transparent 1px)',
-          backgroundSize: '44px 44px',
-        }}
-      />
+    <section ref={sectionRef} id="projects" className="relative overflow-hidden bg-[#F4F2EC] px-6 py-24 text-[#17181A] md:px-12 lg:px-20">
+      <div className="pointer-events-none absolute inset-0 opacity-70"style={{ backgroundImage: 'linear-gradient(to right, rgba(36,64,107,0.07) 1px, transparent 1px), linear-gradient(to bottom, rgba(36,64,107,0.07) 1px, transparent 1px)',backgroundSize: '44px 44px',  }}/>
 
       <div className="relative z-10 mx-auto max-w-7xl">
         {mode !== 'all' ? (
@@ -135,10 +109,7 @@ const Project = ({ mode = 'teaser', viewMoreTo = '/projects', showViewMore = tru
                 </h2>
               </div>
               {showViewMore && hasMoreThanThree ? (
-                <Link
-                  to={viewMoreTo}
-                  className="inline-flex shrink-0 items-center gap-2 border border-[#17181A]/15 bg-white px-4 py-2 text-sm font-semibold text-[#17181A] transition hover:border-[#24406B]/40 hover:text-[#24406B]"
-                >
+                <Link to={viewMoreTo} className="inline-flex shrink-0 items-center gap-2 border border-[#17181A]/15 bg-white px-4 py-2 text-sm font-semibold text-[#17181A] transition hover:border-[#24406B]/40 hover:text-[#24406B]">
                   View More
                   <ArrowUpRight size={14} strokeWidth={2.5} />
                 </Link>
@@ -182,8 +153,12 @@ const Project = ({ mode = 'teaser', viewMoreTo = '/projects', showViewMore = tru
           {displayedProjects.map((project) => (
             <article key={project.key} className={   mode === 'all' ? 'group relative flex flex-col border border-[#17181A]/10 bg-[#FBFAF6] transition duration-300 hover:-translate-y-1 hover:border-[#24406B]/40 hover:shadow-md'  : 'group relative w-[320px] shrink-0 snap-start flex-col border border-[#17181A]/10 bg-[#FBFAF6] transition duration-300 hover:-translate-y-1 hover:border-[#24406B]/40 hover:shadow-md md:w-85'  }   >
               <div className="relative aspect-4/3 overflow-hidden border-b border-[#17181A]/10">
-                <img src={project.image}  alt={project.title || 'Project image'}  loading="lazy"  className="h-full w-full object-cover grayscale transition duration-500 group-hover:scale-105 group-hover:grayscale-0"  />
-                <span className="absolute left-0 top-0 border-b border-r border-[#17181A]/10 bg-[#FBFAF6]/95 px-2.5 py-1 font-mono text-[10px] font-semibold tracking-widest text-[#E2A33B]">
+<img
+  src={project.image}
+  alt={project.title}
+  loading="lazy"
+  className="h-full w-full object-cover grayscale transition duration-500 group-hover:scale-105 group-hover:grayscale-0"
+/>                <span className="absolute left-0 top-0 border-b border-r border-[#17181A]/10 bg-[#FBFAF6]/95 px-2.5 py-1 font-mono text-[10px] font-semibold tracking-widest text-[#E2A33B]">
                   {project.code}
                 </span>
                 <CornerMarks className="opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -204,13 +179,13 @@ const Project = ({ mode = 'teaser', viewMoreTo = '/projects', showViewMore = tru
                   <Link
                     to={`/project/${project.id}`}
                     state={{
-                      image: project.image,
-                      title: project.title,
-                      description: project.description,
-                      date: project.date,
-                      location: project.location,
-                      code: project.code,
-                    }}
+  image: project.image,
+  title: project.title,
+  description: project.description,
+  date: project.date,
+  location: project.location,
+  code: project.code,
+}}
                     className="mt-5 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.15em] text-[#17181A] transition group-hover:text-[#24406B]"
                   >
                     View project
