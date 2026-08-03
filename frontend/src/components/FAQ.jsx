@@ -202,7 +202,7 @@ useEffect(() => {
             <div className="relative aspect-4/5 border border-[#17181A]/10 bg-[#FBFAF6] p-2">
               <CornerMarks />
               <div className="relative flex h-full w-full flex-col items-center justify-center gap-3 overflow-hidden border border-dashed border-[#24406B]/20 text-[#48524F]">
-                <svg viewBox="0 0 200 200" className="absolute h-full w-full">
+                {/* <svg viewBox="0 0 200 200" className="absolute h-full w-full">
                   <circle
                     cx="100"
                     cy="100"
@@ -229,17 +229,22 @@ useEffect(() => {
                     strokeWidth="1.5"
                     strokeDasharray="6 5"
                   />
-                </svg>
+                </svg> */}
 
-                <div ref={pinRef} className="relative z-10 flex flex-col items-center gap-2">
-                  <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[#24406B]/40 bg-white text-[#24406B] shadow-sm">
-                    <MapPin size={20} strokeWidth={2} />
-                  </span>
-                  <p className="font-mono text-xs uppercase tracking-[0.25em]">Service Area</p>
-                  <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#48524F]/70">
-                    Portland, OR — 90mi Radius
-                  </p>
+                <div className='w-full h-full border-1 p-1'>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1898.6905267017723!2d74.00560492063688!3d15.40685208761127!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bbfbac0292b0013%3A0x94aac5c32915f6cc!2sMasjid%20E%20Noorani!5e0!3m2!1sen!2sin!4v1785738237911!5m2!1sen!2sin" className="w-full h-full border-0"  loading="lazy" allowFullScreen referrerPolicy="strict-origin-when-cross-origin" />
                 </div>
+
+
+               <div ref={pinRef} className="relative mt-5 mb-7 z-10 flex items-center gap-3 rounded-full border  px-4 py-2 shadow-sm">
+                  <MapPin size={20} strokeWidth={2} className="text-[#24406B]" />
+                   <div className="flex flex-col">
+                      <p className="font-mono text-xs uppercase ">Visit our Office</p>
+                       <p className="font-mono text-[13px] uppercase tracking-[0.1em] text-[#48524F]/70">Noorani Masjd ponda goa</p>
+                    </div>
+               </div>
+
+
               </div>
 
               {/* Dimension callouts */}

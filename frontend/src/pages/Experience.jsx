@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
+import API from '../api/api'
 gsap.registerPlugin(ScrollTrigger)
 
 const milestones = [
@@ -36,6 +36,8 @@ const Experience = () => {
   const sectionRef = useRef(null)
   const lineRef = useRef(null)
   const itemsRef = useRef(null)
+  const [projectData, setProjectData] = useState([])
+  
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -58,7 +60,7 @@ const Experience = () => {
           }
         )
 
-        gsap.from(itemsRef.current ? itemsRef.current.children : [], {
+        gsap.from(itemsRef.current , {
           opacity: 0,
           y: 28,
           duration: 0.7,
@@ -75,22 +77,26 @@ const Experience = () => {
     return () => ctx.revert()
   }, [])
 
+    useEffect(() => {
+    const loadProjects = async () => {
+      try {
+        const response = await API.get('/project/')
+        setProjectData(response.data.projects || [])
+        console.log(response.data)
+      } catch (error) {
+        setProjectData([])
+      }
+    }
+
+    loadProjects()
+  }, [])
+
   return (
-    <section
-      ref={sectionRef}
-      id="experience"
-      className="relative overflow-hidden bg-[#F4F2EC] px-6 py-24 text-[#17181A] md:px-12 lg:px-20"
-    >
-      <div
-        className="pointer-events-none absolute inset-0 opacity-70"
-        style={{
-          backgroundImage:
-            'linear-gradient(to right, rgba(36,64,107,0.07) 1px, transparent 1px), linear-gradient(to bottom, rgba(36,64,107,0.07) 1px, transparent 1px)',
-          backgroundSize: '44px 44px',
-        }}
-      />
+    <section  ref={sectionRef}   id="experience"  className="relative overflow-hidden bg-[#F4F2EC] px-6 py-24 text-[#17181A] md:px-12 lg:px-20">
+      <div className="pointer-events-none absolute inset-0 opacity-70"style={{backgroundImage: 'linear-gradient(to right, rgba(36,64,107,0.07) 1px, transparent 1px), linear-gradient(to bottom, rgba(36,64,107,0.07) 1px, transparent 1px)',  backgroundSize: '44px 44px',}}  />
 
       <div className="relative z-10 mx-auto max-w-4xl">
+        
         <div className="mb-16 text-center">
           <p className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[#24406B]">
             Division 02 — Experience
@@ -113,11 +119,11 @@ const Experience = () => {
           />
 
           <div ref={itemsRef} className="relative flex flex-col gap-14">
-            {milestones.map((item, i) => {
+            {projectData.map((item, i) => {
               const alignLeft = i % 2 === 0
               return (
                 <div
-                  key={item.year}
+                  key={item._id}
                   className={`relative flex flex-col md:flex-row md:items-center ${
                     alignLeft ? 'md:flex-row' : 'md:flex-row-reverse'
                   }`}
@@ -126,17 +132,21 @@ const Experience = () => {
                   <span className="absolute left-1/2 top-1.5 hidden h-2.5 w-2.5 -translate-x-1/2 rounded-full border-2 border-[#24406B] bg-[#F4F2EC] md:block" />
                   <span className="absolute left-1/2 top-2 hidden h-px w-6 -translate-x-1/2 bg-[#24406B]/40 md:block" />
 
-                  <div
-                    className={`w-full md:w-1/2 ${
-                      alignLeft ? 'md:pr-12 md:text-right' : 'md:pl-12 md:text-left'
-                    }`}
-                  >
-                    <div className="inline-block border border-[#17181A]/10 bg-[#FBFAF6] px-6 py-5 text-left">
+                  <div  className={`w-full md:w-1/2 ${ alignLeft ? 'md:pr-12 md:text-right' : 'md:pl-12 md:text-left'}`}  >
+                    <div className="relative inline-block border border-[#17181A]/10 bg-[#FBFAF6] px-6 py-5 text-left">
+                     
+                     <div className='relative'>
                       <p className="font-mono text-sm font-bold tracking-widest text-[#E2A33B]">
-                        {item.year}
+                        {new Date(item.date).getFullYear()}
                       </p>
-                      <h3 className="mt-1 text-lg font-bold text-[#17181A]">{item.title}</h3>
-                      <p className="mt-1.5 text-sm leading-6 text-[#48524F]">{item.desc}</p>
+                      <p className="absolute right-0 top-0 font-mono text-sm font-bold tracking-widest text-[#E2A33B]">
+                        {item.location}
+                      </p>
+                     </div>
+
+                      
+                      <h3 className="mt-3 text-lg font-bold text-[#17181A]">{item.title}</h3>
+                      <p className="mt-2.5 text-sm leading-6 text-[#48524F]">{item.description}</p>
                     </div>
                   </div>
 
