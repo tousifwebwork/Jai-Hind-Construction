@@ -81,8 +81,7 @@ const Experience = () => {
     const loadProjects = async () => {
       try {
         const response = await API.get('/project/')
-        setProjectData(response.data.projects || [])
-        console.log(response.data)
+        setProjectData(response.data.projects || []) 
       } catch (error) {
         setProjectData([])
       }

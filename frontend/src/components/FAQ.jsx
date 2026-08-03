@@ -50,8 +50,7 @@ const faqs = [
 const FAQ = () => {
   const sectionRef = useRef(null)
   const listRef = useRef(null)
-  const panelRef = useRef(null)
-  const ringRef = useRef(null)
+  const panelRef = useRef(null) 
   const pinRef = useRef(null)
   const [openIndex, setOpenIndex] = useState(0)
   const answerRefs = useRef([])
@@ -79,24 +78,7 @@ useEffect(() => {
           ease: 'power2.out',
           scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' },
       })
-
-      gsap.fromTo(
-        ringRef.current,
-        {
-          strokeDasharray: 500,
-          strokeDashoffset: 500,
-        },
-        {
-          strokeDashoffset: 0,
-          duration: 1.4,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 75%',
-            toggleActions: 'restart none none reset',
-          },
-        }
-      )
+ 
 
       gsap.from(pinRef.current, {
         y: -16,
