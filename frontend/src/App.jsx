@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
+import { Route, Routes, useLocation } from 'react-router-dom'
 
 import Nav from './components/Nav'
 import FAQ from './components/FAQ'
@@ -12,6 +13,8 @@ import Services from './pages/Services'
 import Experience from './pages/Experience'
 import Footer from './components/Footer'
 import Contact from './pages/Contact'
+import ProjectDetail from './pages/ProjectDetail'
+import Projects from './pages/Projects'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -19,6 +22,24 @@ gsap.registerPlugin(ScrollTrigger)
 
 const App = () => {
   const lenisRef = useRef(null)
+  const location = useLocation()
+  const showNav = !location.pathname.startsWith('/project/')
+
+  useLayoutEffect(() => {
+    const target = location.state?.scrollTo || location.hash
+
+    window.requestAnimationFrame(() => {
+      if (target) {
+        const element = document.querySelector(target)
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          return
+        }
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    })
+  }, [location.pathname, location.hash, location.key, location.state])
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
@@ -67,18 +88,48 @@ const App = () => {
   }, [])
 
   return (
-    <div className="min-h-screen bg-[#F4F2EC] font-sans text-[#17181A] antialiased">
-      <Nav />
-      <main>
-        <Hero />
-        <About />
-        <Services />
-        <Experience />
-        <FAQ />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <Routes>
+      <Route
+        path="/"
+        element={(
+          <div className="min-h-screen bg-[#F4F2EC] font-sans text-[#17181A] antialiased">
+            {showNav ? <Nav /> : null}
+            <main>
+              <Hero />
+              <About />
+              <Services />
+              <Experience />
+              <FAQ />
+              <Contact />
+            </main>
+            <Footer />
+          </div>
+        )}
+      />
+      <Route
+        path="/projects"
+        element={(
+          <div className="min-h-screen bg-[#F4F2EC] font-sans text-[#17181A] antialiased">
+            {showNav ? <Nav /> : null}
+            <main>
+              <Projects />
+            </main>
+            <Footer />
+          </div>
+        )}
+      />
+      <Route
+        path="/project/:id"
+        element={(
+          <div className="min-h-screen bg-[#F4F2EC] font-sans text-[#17181A] antialiased">
+            <main>
+              <ProjectDetail />
+            </main>
+            <Footer />
+          </div>
+        )}
+      />
+    </Routes>
   )
 }
 

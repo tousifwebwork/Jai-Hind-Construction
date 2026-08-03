@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Compass, Menu, X, ArrowUpRight } from 'lucide-react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 const links = [
@@ -12,6 +13,8 @@ const links = [
 const Nav = () => {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const navigate = useNavigate()
+  const location = useLocation()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -37,6 +40,16 @@ const Nav = () => {
   const handleNavClick = (e, href) => {
     e.preventDefault()
     setOpen(false)
+
+    if (href.startsWith('/')) {
+      navigate(href)
+      return
+    }
+
+    if (location.pathname !== '/') {
+      navigate('/', { state: { scrollTo: href } })
+      return
+    }
 
     // Prefer the shared Lenis instance (set on window by App.jsx) so the
     // jump matches the page's smooth-scroll easing; fall back gracefully
@@ -95,11 +108,11 @@ const Nav = () => {
           </nav>
 
           <a
-            href="#contact"
-            onClick={(e) => handleNavClick(e, '#contact')}
+            href="/projects"
+            onClick={(e) => handleNavClick(e, '/projects')}
             className="hidden items-center gap-1.5 border border-[#17181A]/20 px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.15em] text-[#17181A] transition hover:border-[#17181A] md:inline-flex"
           >
-            Get a quote
+            View projects
             <ArrowUpRight size={14} strokeWidth={2.5} />
           </a>
 
@@ -144,12 +157,8 @@ const Nav = () => {
               <span className="transition group-hover:text-[#24406B]">{link.label}</span>
             </a>
           ))}
-          <a
-            href="#contact"
-            onClick={(e) => handleNavClick(e, '#contact')}
-            className="mt-6 inline-flex items-center gap-2 bg-[#17181A] px-6 py-3.5 text-sm font-semibold text-[#F4F2EC]"
-          >
-            Get a quote
+          <a href="/projects" onClick={(e) => handleNavClick(e, '/projects')} className="mt-6 inline-flex items-center gap-2 bg-[#17181A] px-6 py-3.5 text-sm font-semibold text-[#F4F2EC]">
+            View projects
             <ArrowUpRight size={16} strokeWidth={2.5} />
           </a>
         </nav>

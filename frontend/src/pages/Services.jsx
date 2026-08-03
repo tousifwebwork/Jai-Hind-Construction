@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Building2, Ruler, ShieldCheck, Wrench, ArrowUpRight } from 'lucide-react'
+import Project from '../components/Project'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -23,7 +24,6 @@ const Services = () => {
   const introRef = useRef(null)
   const cardsRef = useRef(null)
   const projectsIntroRef = useRef(null)
-  const projectsRef = useRef(null)
   const tagsRef = useRef(null)
 
   const skills = [
@@ -52,28 +52,6 @@ const Services = () => {
       desc: 'We modernize interiors and infrastructure with minimal disruption to operations.',
     },
   ]
- 
-  const projects = [
-    {
-      code: 'P-01',
-      title: 'Cascade Corporate Center',
-      desc: '120,000 sq ft office campus delivered eight weeks ahead of schedule.',
-      image: 'https://media.istockphoto.com/id/1193994027/photo/cute-boy-outdoors.jpg?s=612x612&w=0&k=20&c=9t0VR6BCwSZk5ciPSuMzrN0gpfDG2lBoCtHsvoBN0vA=',
-    },
-    {
-      code: 'P-02',
-      title: 'Riverside Civic Plaza',
-      desc: 'Public plaza and municipal building completed to LEED Gold standard.',
-      image: 'https://media.istockphoto.com/id/1193994027/photo/cute-boy-outdoors.jpg?s=612x612&w=0&k=20&c=9t0VR6BCwSZk5ciPSuMzrN0gpfDG2lBoCtHsvoBN0vA=',
-    },
-    {
-      code: 'P-03',
-      title: 'Foundry District Retail',
-      desc: 'Mixed-use retail fit-out completed on a compressed schedule, zero incidents.',
-      image: 'https://media.istockphoto.com/id/1193994027/photo/cute-boy-outdoors.jpg?s=612x612&w=0&k=20&c=9t0VR6BCwSZk5ciPSuMzrN0gpfDG2lBoCtHsvoBN0vA=',
-    },
-  ]
-
   const technologies = [
     'Commercial Construction',
     'Civil Works',
@@ -84,9 +62,7 @@ const Services = () => {
   ]
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Respect prefers-reduced-motion: skip entrance animation, content
-      // renders in its final state immediately.
+    const ctx = gsap.context(() => { 
       const mm = gsap.matchMedia()
 
       mm.add('(prefers-reduced-motion: no-preference)', () => {
@@ -120,18 +96,6 @@ const Services = () => {
           ease: 'power2.out',
           scrollTrigger: {
             trigger: projectsIntroRef.current,
-            start: 'top 85%',
-          },
-        })
-
-        gsap.from(projectsRef.current , {
-          y: 40,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: projectsRef.current,
             start: 'top 85%',
           },
         })
@@ -255,40 +219,9 @@ const Services = () => {
             </div>
           </div>
 
-          <div ref={projectsRef} className="grid gap-6 md:grid-cols-3">
-            {projects.map((project) => (
-              <div
-                key={project.code}
-                className="group relative flex flex-col border border-[#17181A]/10 bg-white transition duration-300 hover:-translate-y-1 hover:border-[#24406B]/40 hover:shadow-md"
-              >
-                <div className="relative aspect-[4/3] overflow-hidden border-b border-[#17181A]/10">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    loading="eager"
-                    decoding="sync"
-                    className="h-full w-full object-cover grayscale transition duration-500 group-hover:scale-105 group-hover:grayscale-0"
-                  />
-                  <span className="absolute left-0 top-0 border-b border-r border-[#17181A]/10 bg-[#FBFAF6]/95 px-2.5 py-1 font-mono text-[10px] font-semibold tracking-widest text-[#E2A33B]">
-                    {project.code}
-                  </span>
-                  <CornerMarks className="opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                </div>
+         
+          <Project />
 
-                <div className="flex flex-1 flex-col p-6">
-                  <h3 className="mb-2 text-lg font-bold text-[#17181A]">{project.title}</h3>
-                  <p className="flex-1 text-sm leading-6 text-[#48524F]">{project.desc}</p>
-                  <a
-                    href="#contact"
-                    className="mt-5 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.15em] text-[#17181A] transition group-hover:text-[#24406B]"
-                  >
-                    View project
-                    <ArrowUpRight size={14} strokeWidth={2.5} className="transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
 
         {/* Specializations panel */}

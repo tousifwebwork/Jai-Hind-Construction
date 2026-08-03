@@ -1,5 +1,14 @@
 const Project = require("../model/project.model");
 
+exports.getProjects = async (req, res) => {
+  try {
+    const projects = await Project.find().sort({ createdAt: -1 });
+    res.status(200).json({ success: true, projects });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
 exports.getProject = async (req, res) => {
   try {
     const project = await Project.findById(req.params.id);

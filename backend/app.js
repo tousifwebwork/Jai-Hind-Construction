@@ -15,7 +15,7 @@ connect_DB();
 const app = express();
 const PORT = process.env.PORT || 5000; 
 
-app.use(cors({ origin: process.env.CLIENT_URL,credentials: true,}));
+app.use(cors({ origin: [process.env.CLIENT_DEV_URL,process.env.CLIENT_PROD_URL],credentials: true,}));
 app.use(helmet());
 app.use(hpp());
 app.use(compression());
