@@ -143,7 +143,7 @@ const Services = () => {
           <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[#24406B]">
-                Division 00 — Capabilities
+                Division 02 — Capabilities
               </p>
               <h2 className="text-4xl font-extrabold tracking-tight text-[#17181A] md:text-5xl">
                 What We Build

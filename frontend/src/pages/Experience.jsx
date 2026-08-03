@@ -99,7 +99,7 @@ const Experience = () => {
         
         <div className="mb-16 text-center">
           <p className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[#24406B]">
-            Division 02 — Experience
+            Division 04 — Experience
           </p>
           <h2 className="text-4xl font-extrabold tracking-tight md:text-5xl">
             Twenty years, one survey line.

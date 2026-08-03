@@ -30,6 +30,10 @@ const projectSlots = [
   'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80',
   'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80',
   'https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1200&q=80',
+  'https://images.unsplash.com/photo-1508062878650-88b52897f298?q=80&w=627&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  'https://plus.unsplash.com/premium_photo-1672423154405-5fd922c11af2?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  'https://plus.unsplash.com/premium_photo-1680281936362-aff258ecd143?q=80&w=700&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  'https://images.unsplash.com/photo-1529307474719-3d0a417aaf8a?q=80&w=680&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
 ]
 
 const Project = ({ mode = 'teaser', viewMoreTo = '/projects', showViewMore = true }) => {
@@ -148,10 +152,7 @@ const Project = ({ mode = 'teaser', viewMoreTo = '/projects', showViewMore = tru
         ) : null}
 
         {mode === 'all' ? (
-          <div ref={introRef} className="mx-auto max-w-3xl text-center">
-            <p className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[#24406B]">
-              Division 03 — All Projects
-            </p>
+          <div ref={introRef} className="mx-auto max-w-3xl text-center"> 
             <h2 className="text-4xl font-extrabold tracking-tight md:text-5xl">
               Browse every project in the database.
             </h2>

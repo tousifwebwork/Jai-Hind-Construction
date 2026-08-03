@@ -11,8 +11,7 @@ const ProjectDetail = () => {
   const [error, setError] = useState('')
   const routeProject = location.state || {}
 
-  const projectImage =
-    routeProject.image || 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80'
+  const projectImage =  routeProject.image || 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80'
 
   const CornerMarks = ({ className = '' }) => (
   <>
