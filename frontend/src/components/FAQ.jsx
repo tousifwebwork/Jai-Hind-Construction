@@ -188,7 +188,7 @@ useEffect(() => {
                     style={{ height: i === openIndex ? 'auto' : 0, opacity: i === openIndex ? 1 : 0 }}
                     className="overflow-hidden px-6"
                   >
-                    <p className="max-w-md border-t border-[#17181A]/10 pb-6 pt-4 text-sm leading-6 text-[#48524F] md:pl-[3.25rem]">
+                    <p className="max-w-md border-t border-[#17181A]/10 pb-6 pt-4 text-sm leading-6 text-[#48524F] md:pl-13">
                       {item.a}
                     </p>
                   </div>
@@ -231,7 +231,7 @@ useEffect(() => {
                   />
                 </svg> */}
 
-                <div className='w-full h-full border-1 p-1'>
+                <div className='w-full h-full border p-1'>
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1898.6905267017723!2d74.00560492063688!3d15.40685208761127!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bbfbac0292b0013%3A0x94aac5c32915f6cc!2sMasjid%20E%20Noorani!5e0!3m2!1sen!2sin!4v1785738237911!5m2!1sen!2sin" className="w-full h-full border-0"  loading="lazy" allowFullScreen referrerPolicy="strict-origin-when-cross-origin" />
                 </div>
 
@@ -240,7 +240,7 @@ useEffect(() => {
                   <MapPin size={20} strokeWidth={2} className="text-[#24406B]" />
                    <div className="flex flex-col">
                       <p className="font-mono text-xs uppercase ">Visit our Office</p>
-                       <p className="font-mono text-[13px] uppercase tracking-[0.1em] text-[#48524F]/70">Noorani Masjd ponda goa</p>
+                       <p className="font-mono text-[13px] uppercase tracking-widest text-[#48524F]/70">Noorani Masjd ponda goa</p>
                     </div>
                </div>
 

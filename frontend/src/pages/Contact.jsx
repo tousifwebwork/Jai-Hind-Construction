@@ -2,6 +2,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Mail, User, MessageSquare, ArrowUpRight, Check } from 'lucide-react'
+import API from '../api/api'
+import toast from "react-hot-toast";
+
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -51,31 +54,45 @@ const Contact = () => {
     setErrors((prev) => ({ ...prev, [name]: undefined }))
   }
 
-  const validate = () => {
-    const next = {}
-    if (!form.name.trim()) next.name = 'Enter your name.'
-    if (!form.email.trim()) {
-      next.email = 'Enter your email.'
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      next.email = 'Enter a valid email address.'
+ 
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  setStatus("submitting");
+  setErrors({});
+
+  const toastId = toast.loading("Sending message...");
+
+  try {
+    const res = await API.post("/contact/form", {
+      name: form.name,
+      email: form.email,
+      message: form.message,
+    });
+
+    if (res.data.success) {
+      toast.success(res.data.message || "Message sent successfully!", {
+        id: toastId,
+      }); 
+      setStatus("success");
+      setForm(initialForm);
     }
-    if (!form.message.trim()) next.message = 'Enter a message.'
-    return next
-  }
+  } catch (error) {
+    if (error.response?.data?.errors) {
+      setErrors(error.response.data.errors);
+    }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const nextErrors = validate()
-    setErrors(nextErrors)
-    if (Object.keys(nextErrors).length > 0) return
+    toast.error(
+      error.response?.data?.message || "Failed to send message.",
+      {
+        id: toastId,
+      }
+    );
 
-    setStatus('submitting')
-    // Wire this up to your API / form endpoint of choice.
-    setTimeout(() => {
-      setStatus('success')
-      setForm(initialForm)
-    }, 900)
+    setStatus("idle");
   }
+};
 
   const fieldClasses = (hasError) =>
     `w-full border bg-white py-3 pl-11 pr-4 text-sm text-[#17181A] outline-none transition placeholder:text-[#48524F]/50 focus:border-[#24406B] ${
@@ -84,22 +101,12 @@ const Contact = () => {
 
   return (
     <section ref={sectionRef} id="contact" className="relative overflow-hidden bg-[#F4F2EC] px-6 py-24 text-[#17181A] md:px-12 lg:px-20"  >
-      <div
-        className="pointer-events-none absolute inset-0 opacity-70"
-        style={{
-          backgroundImage:
-            'linear-gradient(to right, rgba(36,64,107,0.07) 1px, transparent 1px), linear-gradient(to bottom, rgba(36,64,107,0.07) 1px, transparent 1px)',
-          backgroundSize: '44px 44px',
-        }}
-      />
+      <div className="pointer-events-none absolute inset-0 opacity-70"   style={{   backgroundImage: 'linear-gradient(to right, rgba(36,64,107,0.07) 1px, transparent 1px), linear-gradient(to bottom, rgba(36,64,107,0.07) 1px, transparent 1px)',  backgroundSize: '44px 44px',  }} />
       <div className="pointer-events-none absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-[#24406B]/10 blur-3xl" />
       <div className="pointer-events-none absolute -right-24 top-10 h-80 w-80 rounded-full bg-[#E2A33B]/10 blur-3xl" />
 
       <div className="relative z-10 mx-auto max-w-3xl">
-        <div
-          ref={panelRef}
-          className="relative border border-[#17181A]/10 bg-[#FBFAF6] p-8 md:p-12"
-        >
+        <div ref={panelRef} className="relative border border-[#17181A]/10 bg-[#FBFAF6] p-8 md:p-12"  >
           <CornerMarks />
 
           <div className="mb-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
@@ -138,9 +145,9 @@ const Contact = () => {
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} noValidate className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label
+                <label 
                   htmlFor="contact-name"
                   className="mb-2 block font-mono text-xs uppercase tracking-[0.2em] text-[#48524F]"
                 >
