@@ -7,7 +7,7 @@ const links = [
   { label: 'Home', href: '#home' },
   { label: 'About', href: '#about' },
   { label: 'Services', href: '#services' },
-  { label: 'Experience', href: '#experience' },
+  { label: 'Experience', href: '#experience' }, 
 ]
 
 const Nav = () => {
@@ -74,12 +74,7 @@ const Nav = () => {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-          scrolled
-            ? 'border-b border-[#17181A]/10 bg-[#F4F2EC]/90 backdrop-blur-md'
-            : 'border-b border-transparent bg-transparent'
-        }`}
-      >
+        className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${scrolled   ? 'border-b border-[#17181A]/10 bg-[#F4F2EC]/90 backdrop-blur-md' : 'border-b border-transparent bg-transparent' }`} >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-12 lg:px-20">
           {/* Logo */}
           <a
@@ -107,14 +102,32 @@ const Nav = () => {
             ))}
           </nav>
 
+      <div className="hidden md:flex items-center gap-3">
           <a
             href="/projects"
             onClick={(e) => handleNavClick(e, '/projects')}
             className="hidden items-center gap-1.5 border border-[#17181A]/20 px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.15em] text-[#17181A] transition hover:border-[#17181A] md:inline-flex"
           >
             View projects
-            <ArrowUpRight size={14} strokeWidth={2.5} />
+            <ArrowUpRight size={10} strokeWidth={2.5} />
           </a>
+
+          <a
+  href="#contact"
+  onClick={(e) => handleNavClick(e, "#contact")}
+  className="hidden md:inline-flex items-center gap-1.5 border border-[#17181A]/20 px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.15em] text-[#17181A] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#24406B] hover:bg-[#24406B] hover:text-white hover:shadow-lg"
+>
+  Contact Us
+  <ArrowUpRight
+    size={10}
+    strokeWidth={2.5}
+    className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+  />
+</a>
+          </div>
+
+
+
 
           {/* Mobile toggle */}
           <button
@@ -156,11 +169,19 @@ const Nav = () => {
               </span>
               <span className="transition group-hover:text-[#24406B]">{link.label}</span>
             </a>
-          ))}
+          ))} 
           <a href="/projects" onClick={(e) => handleNavClick(e, '/projects')} className="mt-6 inline-flex items-center gap-2 bg-[#17181A] px-6 py-3.5 text-sm font-semibold text-[#F4F2EC]">
             View projects
             <ArrowUpRight size={16} strokeWidth={2.5} />
           </a>
+          <a
+  href="#contact"
+  onClick={(e) => handleNavClick(e, "#contact")}
+  className="mt-3 inline-flex items-center gap-2 border border-[#17181A] px-6 py-3.5 text-sm font-semibold text-[#17181A] transition-all duration-300 hover:bg-[#17181A] hover:text-white"
+>
+  Contact Us
+  <ArrowUpRight size={16} strokeWidth={2.5} />
+</a>
         </nav>
       </div>
     </>
