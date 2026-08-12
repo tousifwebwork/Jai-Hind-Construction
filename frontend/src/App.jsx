@@ -15,6 +15,7 @@ import Footer from './components/Footer'
 import Contact from './pages/Contact'
 import ProjectDetail from './pages/ProjectDetail'
 import Projects from './pages/Projects'
+import PageNotFound from './pages/PageNotFound'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -129,6 +130,7 @@ const App = () => {
           </div>
         )}
       />
+      <Route path="*" element={<PageNotFound />} />
     </Routes>
   )
 }
